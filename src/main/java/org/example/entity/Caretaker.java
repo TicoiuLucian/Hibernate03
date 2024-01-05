@@ -23,7 +23,7 @@ public class Caretaker {
 
   private Integer age;
 
-  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "caretakers")
+  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER, mappedBy = "caretakers")
   private List<Animal> animals = new ArrayList<>();
 
   public void addAnimal(Animal animal) {

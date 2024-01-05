@@ -9,7 +9,6 @@ import org.example.service.Service;
 public class Main {
   public static void main(String[] args) {
     Service<Caretaker> caretakerService = new CaretakerService();
-    Service<Animal> animalService = new AnimalService();
 
     Caretaker marcel = new Caretaker();
     marcel.setCaretakerName("Marcel");
@@ -25,17 +24,15 @@ public class Main {
 
     marcel.addAnimal(new Animal("Lion"));
     marcel.addAnimal(new Animal("Tiger"));
+    caretakerService.persist(marcel);
 
     ion.addAnimal(new Animal("Deer"));
     ion.addAnimal(new Animal("Mouse"));
-    animalService.findByName("Tiger");
-    ion.addAnimal(tiger);
+    ion.addAnimal(new Animal("Tiger"));
+    caretakerService.persist(ion);
 
     daniel.addAnimal(new Animal("Parrot"));
     daniel.addAnimal(new Animal("Lizard"));
-
-    caretakerService.persist(marcel);
-    caretakerService.persist(ion);
     caretakerService.persist(daniel);
   }
 }

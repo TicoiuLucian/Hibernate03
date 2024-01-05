@@ -14,5 +14,5 @@ public interface Service<T> {
 
   void update(T t, String... args);
 
-  boolean exists(String animalName);
+  List<T> getByName(final String name);
 }

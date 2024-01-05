@@ -1,10 +1,12 @@
 package org.example.dao;
 
+import org.example.entity.Animal;
 import org.example.entity.Caretaker;
 import org.example.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.util.List;
 import java.util.Optional;
@@ -53,6 +55,16 @@ public class CaretakerDAOImpl implements DAO<Caretaker> {
   @Override
   public void update(final Caretaker caretaker, final String... args) {
 
+  }
+
+  public List<Caretaker> getByName(final String name) {
+    String hql = "FROM Caretaker C WHERE C.caretakerName = :name " ;
+    openSession();
+    Query<Caretaker> query = session.createQuery(hql, Caretaker.class);
+    query.setParameter("name",name);
+    List<Caretaker> results = query.getResultList();
+    closeSession();
+    return results;
   }
 
   private void openSessionAndTransaction() {

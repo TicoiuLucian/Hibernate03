@@ -5,6 +5,7 @@ import org.example.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 import java.util.List;
 import java.util.Optional;
@@ -69,6 +70,17 @@ public class AnimalDAOImpl implements DAO<Animal> {
       }
     }
     closeSessionAndCommitTransaction();
+  }
+
+  @Override
+  public List<Animal> getByName(final String name) {
+    String hql = "FROM Animal A WHERE A.name = :name";
+    openSession();
+    Query<Animal> query = session.createQuery(hql, Animal.class);
+    query.setParameter("name", name);
+    List<Animal> results = query.getResultList();
+    closeSession();
+    return results;
   }
 
   private void openSessionAndTransaction() {
